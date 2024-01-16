@@ -1,0 +1,11 @@
+ny=100 		nx=64	nz=64
+alfa0=0.8976	beta0=1.7952
+ymin=0		ymax=2		a=1.5
+ni=4200		pr=0.71	
+meanflowx=1.3333333	meanpz=0
+u_conv=0.0	w_conv=0.0
+u0=0.0		un=0.0		w0=0.0		wn=0.0	t0=-1.0	tn=1.0
+
+cflmax=1.5 	t_max=500		time_from_restart=no
+dt_field=25	dt_save=50 
+restart_file=Dati.carttransient.in
