@@ -1,0 +1,29 @@
+USE rtchecks
+#define bodyforce
+!#define scalar
+gamma=0
+USE dnsdata
+USE dnsdirect
+read_restart_file; cont=FLOOR(time/dt_field)
+outstats()
+REAL sl=0.02
+LOOP forward WHILE time < t_max-deltat/2
+  LOOP FOR ix=0 TO nx AND iz=-nz TO nz
+   bc0(ix,iz).u=sl*[SUM derivatives(2).d1(i)*V(ix,iz,2+i).u FOR i=-2 TO 2]
+   bcn(ix,iz).u=sl*[SUM -derivatives(ny-2).d1(i)*V(ix,iz,ny-2+i).u FOR i=-2 TO 2]
+  REPEAT
+  
+  time=~+2/RK1_rai_coeff*deltat
+  buildrhs(RK1_rai);linsolve(RK1_rai_coeff/deltat)
+  vetaTOuvw; computeflowrate(RK1_rai_coeff/deltat)
+
+  time=~+2/RK2_rai_coeff*deltat
+  buildrhs(RK2_rai);linsolve(RK2_rai_coeff/deltat)
+  vetaTOuvw; computeflowrate(RK2_rai_coeff/deltat)
+  
+  time=~+2/RK3_rai_coeff*deltat
+  buildrhs(RK3_rai);linsolve(RK3_rai_coeff/deltat)
+  vetaTOuvw; computeflowrate(RK3_rai_coeff/deltat)
+  outstats()
+  IF reread THEN read_initial_data; reread=NO
+REPEAT forward
