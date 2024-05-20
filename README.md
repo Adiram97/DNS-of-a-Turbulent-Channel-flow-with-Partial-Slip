@@ -4,6 +4,6 @@ This research is part of my master's thesis. Friction drag is an essential compo
 
 A complete documentation and a presentation is provided along with the complete code that was used.
 
-Programming Language: CPL
+Programming Language: CPL (https://cplcode.net/)
 
 Equations: DNS (Direct Numerical Simulations)
